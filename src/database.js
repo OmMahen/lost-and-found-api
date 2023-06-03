@@ -9,17 +9,17 @@ const pool = new Pool({
 });
 
 const getLostItems = async () => {
-  const [rows] = await pool.query('SELECT * FROM lost_item');
+  const { rows } = await pool.query('SELECT * FROM lost_item');
   return rows;
 };
 
 const getLostItem = async (id) => {
-  const [rows] = await pool.query('SELECT * FROM lost_item WHERE idlost_item = ?', [id]);
+  const { rows } = await pool.query('SELECT * FROM lost_item WHERE idlost_item = ?', [id]);
   return rows[0];
 };
 
 const createLostItem = async (userName) => {
-  const [result] = await pool.query(`
+  const { result } = await pool.query(`
   INSERT INTO lost_item (user_name)
   VALUE (?)
   `, [userName]);
