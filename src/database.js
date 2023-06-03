@@ -19,11 +19,12 @@ const getLostItem = async (id) => {
 };
 
 const createLostItem = async (userName) => {
-  const { result } = await pool.query(`
-  INSERT INTO lost_item (user_name)
-  VALUE (?)
+  const { rows } = await pool.query(`
+    INSERT INTO lost_item (user_name)
+    VALUES ($1)
+    RETURNING idlost_item
   `, [userName]);
-  const id = result.insertId;
+  const id = rows[0].idlost_item;
   return getLostItem(id);
 };
 
