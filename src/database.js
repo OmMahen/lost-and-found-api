@@ -14,7 +14,7 @@ const getLostItems = async () => {
 };
 
 const getLostItem = async (id) => {
-  const { rows } = await pool.query('SELECT * FROM lost_item WHERE idlost_item = ?', [id]);
+  const { rows } = await pool.query('SELECT * FROM lost_item WHERE idlost_item = $1', [id]);
   return rows[0];
 };
 
