@@ -19,7 +19,7 @@ app.use(Express.json());
 app.use('/uploads', Express.static('uploads'));
 
 app.get("/", (req, res) => {
-    res.send("Express on Vercel");
+    res.send("Lost and Found Finder API");
 });
 
 app.get('/lost-items', async (req, res) => {
