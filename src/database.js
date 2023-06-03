@@ -1,13 +1,9 @@
-import mysql from 'mysql2';
+import { Pool } from 'pg'
 import dotenv from 'dotenv';
-
 dotenv.config();
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
+const pool = new Pool({
+  connectionString: "postgres://default:mdhYe71VMPsH@ep-black-lake-236539-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb?sslmode=require",
 }).promise();
 
 const getLostItems = async () => {
