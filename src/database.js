@@ -6,7 +6,7 @@ const { Pool } = pg;
 
 const pool = new Pool({
   connectionString: "postgres://default:mdhYe71VMPsH@ep-black-lake-236539-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb?sslmode=require",
-}).promise();
+});
 
 const getLostItems = async () => {
   const [rows] = await pool.query('SELECT * FROM lost_item');
