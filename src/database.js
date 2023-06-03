@@ -1,6 +1,8 @@
-import Pool from 'pg'
+import pg from 'pg'
 import dotenv from 'dotenv';
 dotenv.config();
+
+const { Pool } = pg;
 
 const pool = new Pool({
   connectionString: "postgres://default:mdhYe71VMPsH@ep-black-lake-236539-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb?sslmode=require",
