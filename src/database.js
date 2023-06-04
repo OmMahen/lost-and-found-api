@@ -6,6 +6,10 @@ const { Pool } = pg;
 
 const pool = new Pool({
   connectionString: "postgres://OmMahen:Ik7g1UWtOYlC@ep-sweet-glitter-836224-pooler.ap-southeast-1.aws.neon.tech/test_db",
+  ssl: {
+    rejectUnauthorized: false,
+    sslmode: 'require',
+  },
 });
 
 const getLostItems = async () => {
