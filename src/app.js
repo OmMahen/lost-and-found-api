@@ -1,22 +1,13 @@
 import Express from "express"
 import multer from "multer";
 
-import { getLostItem, getLostItems,  createLostItem } from "./database.js";
+import { getLostItem, getLostItems,  createLostItem, insertImage } from "./database.js";
 const app = Express();
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './public/uploads')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname)
-    }
-})
-
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.use(Express.json());
-app.use('/uploads', Express.static('uploads'));
 
 app.get("/", (req, res) => {
     res.send("Lost and Found Finder API");
@@ -39,10 +30,11 @@ app.post('/lost-items', async (req, res) => {
     res.status(201).send(item);
 });
 
-app.post('/upload', upload.single('image'), (req, res) => {
+app.post('/upload', upload.single('image'), async (req, res) => {
     const imageFile = req.file;
-    res.json({ message: 'Image uploaded successfully' });
-  });
+    const imageId = await insertImage(imageFile);
+    res.json({ message: 'Image uploaded successfully', imageId: imageId });
+});
 
 app.use((err, req, res, next) => {
     console.error(err.stack)

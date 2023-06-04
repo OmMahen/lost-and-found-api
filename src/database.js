@@ -32,4 +32,14 @@ const createLostItem = async (userName) => {
   return getLostItem(id);
 };
 
-export { getLostItems, createLostItem, getLostItem };
+const insertImage = async (image) => {
+  const { rows } = await pool.query(`
+    INSERT INTO item_image (image_data)
+    VALUES ($1)
+    RETURNING iditem_image
+  `, [image]);
+  const id = rows[0].iditem_image;
+  return id;
+};
+
+export { getLostItems, createLostItem, getLostItem, insertImage };
