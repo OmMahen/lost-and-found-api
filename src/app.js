@@ -31,7 +31,7 @@ app.post('/lost-items', async (req, res) => {
 });
 
 app.post('/upload', upload.single('image'), async (req, res) => {
-    const imageFile = req.file;
+    const imageFile = req.file.buffer;
     const imageId = await insertImage(imageFile);
     res.json({ message: 'Image uploaded successfully', imageId: imageId });
 });
