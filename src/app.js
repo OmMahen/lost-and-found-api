@@ -1,7 +1,7 @@
 import Express from "express"
 import multer from "multer";
 
-import { getLostItem, getLostItems,  createLostItem, insertImage } from "./database.js";
+import { getLostItem, getLostItems,  createLostItem, insertImage, getFoundItems, getFoundItem, createFoundItem} from "./database.js";
 const app = Express();
 
 const storage = multer.memoryStorage();
@@ -25,9 +25,20 @@ app.get('/lost-items', async (req, res) => {
     res.send(items);
 });
 
+app.get('/found-items', async (req, res) => {
+    const items = await getFoundItems();
+    res.send(items);
+});
+
 app.get('/lost-items/:id', async (req, res) => {
     const id = req.params.id;
     const item = await getLostItem(id);
+    res.send(item);
+});
+
+app.get('/found-items/:id', async (req, res) => {
+    const id = req.params.id;
+    const item = await getFoundItem(id);
     res.send(item);
 });
 
@@ -55,6 +66,33 @@ app.post('/lost-items', async (req, res) => {
     };
 
     const item = await createLostItem(userData);
+    res.send(item);
+});
+
+app.post('/found-items', async (req, res) => {
+    const {
+        user_name,
+        user_email,
+        user_phone,
+        item_name,
+        item_description,
+        found_date,
+        found_location,
+        iditem_image
+    } = req.body;
+    
+    const userData = {
+        user_name,
+        user_email,
+        user_phone,
+        item_name,
+        item_description,
+        found_date: new Date(found_date),
+        found_location,
+        iditem_image
+    };
+
+    const item = await createFoundItem(userData);
     res.send(item);
 });
 
