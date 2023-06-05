@@ -8,6 +8,13 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.use(Express.json());
+app.use((req, res, next) => {
+    if (req.method === 'OPTIONS') {
+      res.sendStatus(200);
+    } else {
+      next();
+    }
+});
 
 app.get("/", (req, res) => {
     res.send("Lost and Found Finder API");
