@@ -25,9 +25,30 @@ app.get('/lost-items/:id', async (req, res) => {
 });
 
 app.post('/lost-items', async (req, res) => {
-    const { name } = req.body;
-    const item = await createLostItem(name);
-    res.status(201).send(item);
+    const {
+        user_name,
+        user_email,
+        user_phone,
+        item_name,
+        item_description,
+        loss_date,
+        loss_location,
+        iditem_image
+    } = req.body;
+    
+    const userData = {
+        user_name,
+        user_email,
+        user_phone,
+        item_name,
+        item_description,
+        loss_date: new Date(loss_date),
+        loss_location,
+        iditem_image
+    };
+
+    const item = await createLostItem(userData);
+    res.send(item);
 });
 
 app.post('/upload', upload.single('image'), async (req, res) => {

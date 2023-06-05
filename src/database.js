@@ -5,7 +5,7 @@ dotenv.config();
 const { Pool } = pg;
 
 const pool = new Pool({
-  connectionString: "postgres://OmMahen:Ik7g1UWtOYlC@ep-sweet-glitter-836224-pooler.ap-southeast-1.aws.neon.tech/test_db",
+  connectionString: "postgres://OmMahen:Ik7g1UWtOYlC@ep-sweet-glitter-836224-pooler.ap-southeast-1.aws.neon.tech/lostandfound_db",
   ssl: {
     rejectUnauthorized: false,
     sslmode: 'require',
@@ -13,22 +13,23 @@ const pool = new Pool({
 });
 
 const getLostItems = async () => {
-  const { rows } = await pool.query('SELECT * FROM lost_item');
+  const { rows } = await pool.query('SELECT * FROM lost_items');
   return rows;
 };
 
 const getLostItem = async (id) => {
-  const { rows } = await pool.query('SELECT * FROM lost_item WHERE idlost_item = $1', [id]);
+  const { rows } = await pool.query('SELECT * FROM lost_items WHERE id = $1', [id]);
   return rows[0];
 };
 
-const createLostItem = async (userName) => {
+const createLostItem = async (userData) => {
+  const { user_name, user_email, user_phone, item_name, item_description, loss_date, loss_location, iditem_image } = userData;
   const { rows } = await pool.query(`
-    INSERT INTO lost_item (user_name)
-    VALUES ($1)
-    RETURNING idlost_item
-  `, [userName]);
-  const id = rows[0].idlost_item;
+    INSERT INTO lost_items (user_name, user_email, user_phone, item_name, item_description, loss_date, loss_location, iditem_image)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    RETURNING id
+  `, [user_name, user_email, user_phone, item_name, item_description, loss_date, loss_location, iditem_image]);
+  const id = rows[0].id;
   return getLostItem(id);
 };
 
