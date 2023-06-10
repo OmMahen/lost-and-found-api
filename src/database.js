@@ -23,7 +23,7 @@ const getFoundItems = async () => {
 };
 
 const getAllItems = async () => {
-  const { rows } = await pool.query('SELECT * FROM items');
+  const { rows } = await pool.query('SELECT iditem_image, item_location, id, item_name, item_date, item_description, status FROM items');
   return rows;
 };
 
