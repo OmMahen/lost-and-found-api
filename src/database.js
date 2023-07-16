@@ -6,6 +6,7 @@ const { Pool } = pg;
 
 const pool = new Pool({
   connectionString: "postgres://mputraraharja:oLQdnxU5gmS1@ep-lively-tooth-750094-pooler.ap-southeast-1.aws.neon.tech/lostandfound_db",
+  // connectionString: "postgres://mputraraharja:oLQdnxU5gmS1@ep-lively-tooth-750094-pooler.ap-southeast-1.aws.neon.tech/test_db",
   ssl: {
     rejectUnauthorized: false,
     sslmode: 'require',
