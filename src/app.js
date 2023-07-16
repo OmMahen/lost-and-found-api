@@ -1,7 +1,6 @@
 import Express from "express";
 import multer from "multer";
 import cors from "cors";
-import path from 'path';
 
 import { insertImage, getAllItems, getItemById, createItem} from "./database.js";
 const app = Express();
@@ -11,10 +10,9 @@ const upload = multer({ storage: storage });
 
 app.use(Express.json());
 app.use(cors());
-app.use(Express.static("docs"));
 
 app.get("/", (req, res) => {
-    res.sendFile('index.html', {root: path.join(__dirname, 'docs')});
+    res.send("Lost and Found Finder API");
 });
 
 app.get('/items', async (req, res) => {
