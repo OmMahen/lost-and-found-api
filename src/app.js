@@ -18,7 +18,7 @@ app.use(Express.static("docs"));
 app.get("/", (req, res) => {
     const currentFilePath = fileURLToPath(import.meta.url);
     const currentDirPath = dirname(currentFilePath);
-    const indexPath = path.join(currentDirPath, "../docs/index.html");
+    const indexPath = path.join(currentDirPath, "docs/index.html");
     res.sendFile(indexPath);
 });
 
