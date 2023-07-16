@@ -1,9 +1,7 @@
 import Express from "express";
 import multer from "multer";
 import cors from "cors";
-import path from "path";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import path from 'path';
 
 import { insertImage, getAllItems, getItemById, createItem} from "./database.js";
 const app = Express();
@@ -16,10 +14,7 @@ app.use(cors());
 app.use(Express.static("docs"));
 
 app.get("/", (req, res) => {
-    const currentFilePath = fileURLToPath(import.meta.url);
-    const currentDirPath = dirname(currentFilePath);
-    const indexPath = path.join(currentDirPath, "docs/index.html");
-    res.sendFile(indexPath);
+    res.sendFile('index.html', {root: path.join(__dirname, 'docs')});
 });
 
 app.get('/items', async (req, res) => {
