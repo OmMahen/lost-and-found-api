@@ -23,6 +23,11 @@ app.get("/", (req, res) => {
     res.sendFile(join(__dirname, "../docs", "index.html"));
 });
 
+app.get("/README.md", (req, res) => {
+    res.sendFile(join(__dirname, "../docs", "README.md"));
+});
+
+
 app.get('/items', async (req, res) => {
     const items = await getAllItems();
     res.status(200).send(items);
