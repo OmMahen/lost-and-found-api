@@ -2,6 +2,13 @@ import Express from "express";
 import multer from "multer";
 import cors from "cors";
 
+//delete this if error
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+app.use(Express.static(join(__dirname, "docs")));
+
 import { insertImage, getAllItems, getItemById, createItem} from "./database.js";
 const app = Express();
 
@@ -12,7 +19,7 @@ app.use(Express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-    res.send("Lost and Found Finder API");
+    res.sendFile(join(__dirname, "docs", "index.html"));
 });
 
 app.get('/items', async (req, res) => {
