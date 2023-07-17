@@ -7,7 +7,6 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-app.use(Express.static(join(__dirname, "docs")));
 
 import { insertImage, getAllItems, getItemById, createItem} from "./database.js";
 const app = Express();
@@ -17,6 +16,8 @@ const upload = multer({ storage: storage });
 
 app.use(Express.json());
 app.use(cors());
+
+app.use(Express.static(join(__dirname, "docs")));
 
 app.get("/", (req, res) => {
     res.sendFile(join(__dirname, "docs", "index.html"));
