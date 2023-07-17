@@ -17,10 +17,10 @@ const upload = multer({ storage: storage });
 app.use(Express.json());
 app.use(cors());
 
-app.use(Express.static(join(__dirname, "docs")));
+app.use(Express.static(join(__dirname, "../docs")));
 
 app.get("/", (req, res) => {
-    res.sendFile(join(__dirname, "docs", "index.html"));
+    res.sendFile(join(__dirname, "../docs", "index.html"));
 });
 
 app.get('/items', async (req, res) => {
